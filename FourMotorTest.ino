@@ -50,27 +50,27 @@ void setup(){
   
     //Motor Control - Motor A: motorPin1,motorpin2 & Motor B: motorpin3,motorpin4
 
-    //This code  will turn Motor A clockwise for 2 sec.
+    //This code  will turn Motor A (#1) clockwise (FORWARDS) for 2 sec.
     digitalWrite(motorPin1, HIGH);
     digitalWrite(motorPin2, LOW);
     digitalWrite(motorPin3, LOW);
     digitalWrite(motorPin4, LOW);
     delay(2000); 
-    //This code will turn Motor A counter-clockwise for 2 sec.
+    //This code will turn Motor A (#1) counter-clockwise (BACKWARDS) for 2 sec.
     digitalWrite(motorPin1, LOW);
     digitalWrite(motorPin2, HIGH);
     digitalWrite(motorPin3, LOW);
     digitalWrite(motorPin4, LOW);
     delay(2000);
     
-    //This code will turn Motor B clockwise for 2 sec.
+    //This code will turn Motor B (#2) counter-clockwise (FORWARDS) for 2 sec.
     digitalWrite(motorPin1, LOW);
     digitalWrite(motorPin2, LOW);
     digitalWrite(motorPin3, HIGH);
     digitalWrite(motorPin4, LOW);
     delay(2000); 
     
-    //This code will turn Motor B counter-clockwise for 2 sec.
+    //This code will turn Motor B (#2) clockwise (BACKWARDS) for 2 sec.
     digitalWrite(motorPin1, LOW);
     digitalWrite(motorPin2, LOW);
     digitalWrite(motorPin3, LOW);
@@ -83,27 +83,27 @@ void setup(){
     digitalWrite(motorPin3, LOW);
     digitalWrite(motorPin4, LOW);
     
-    //This code  will turn Motor 2A clockwise for 2 sec.
+    //This code  will turn Motor 2A (#3) counter-clockwise (FORWARDS) for 2 sec.
     digitalWrite(motor2Pin1, HIGH);
     digitalWrite(motor2Pin2, LOW);
     digitalWrite(motor2Pin3, LOW);
     digitalWrite(motor2Pin4, LOW);
     delay(2000); 
     
-    //This code will turn Motor 2A counter-clockwise for 2 sec.
+    //This code will turn Motor 2A (#3) clockwise (BACKWARDS) for 2 sec.
     digitalWrite(motor2Pin1, LOW);
     digitalWrite(motor2Pin2, HIGH);
     digitalWrite(motor2Pin3, LOW);
     digitalWrite(motor2Pin4, LOW);
     delay(2000);
 
-    //This code  will turn Motor 2B clockwise for 2 sec.
+    //This code  will turn Motor 2B (#4) clockwise (FORWARDS) for 2 sec.
     digitalWrite(motor2Pin1, LOW);
     digitalWrite(motor2Pin2, LOW);
     digitalWrite(motor2Pin3, HIGH);
     digitalWrite(motor2Pin4, LOW);
     delay(2000); 
-    //This code will turn Motor 2B counter-clockwise for 2 sec.
+    //This code will turn Motor 2B (#4) counter-clockwise (BACKWARDS) for 2 sec.
     digitalWrite(motor2Pin1, LOW);
     digitalWrite(motor2Pin2, LOW);
     digitalWrite(motor2Pin3, LOW);
