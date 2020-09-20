@@ -1,3 +1,5 @@
+#include <Wire.h>
+
 //Sensors
 #define trigPinFrontLeft 49
 #define echoPinFrontLeft 48
@@ -31,13 +33,20 @@
 
 #define baud 9600
 
+#define MPU_addr 0x68
+
+int16_t AcX,AcY,AcZ,Tmp,GyX,GyY,GyZ;
+int minVal = 265; 
+int maxVal = 402;
+int y;
+
 void setup() {
     // Sensors
-    pinMode(trigPinFrontLeft, OUTPUT);
-    pinMode(echoPinFrontLeft, INPUT);
+    //pinMode(trigPinFrontLeft, OUTPUT);
+    //pinMode(echoPinFrontLeft, INPUT);
 
-    pinMode(trigPinFrontRight, OUTPUT);
-    pinMode(echoPinFrontRight, INPUT);
+    //pinMode(trigPinFrontRight, OUTPUT);
+    //pinMode(echoPinFrontRight, INPUT);
     
     pinMode(trigPinLeft, OUTPUT);
     pinMode(echoPinLeft, INPUT);
@@ -58,11 +67,21 @@ void setup() {
     pinMode(B_IN2, OUTPUT);
     pinMode(B_IN3, OUTPUT);
     pinMode(B_IN4, OUTPUT);
-    
+
+    // Gyrometer
+    Wire.begin();
+    Wire.beginTransmission(MPU_addr);
+    Wire.endTransmission(true); 
+
     // Serial communication
     Serial.begin(baud);
 }
 
 void loop() {
     readSensors();
+
+    Wire.beginTransmission(MPU_addr); 
+    Wire.write(0x3B); 
+    Wire.endTransmission(false); 
+    Wire.requestFrom(MPU_addr, 14, true); 
 }
