@@ -1,8 +1,3 @@
-//#include <Servo.h>
-
-//Servo myServo;
-//int servoPos = 0;
-
 float readSensors() {
     long soundTime;
     float objDist_FL, objDist_FR, objDist_L, objDist_R;
@@ -48,42 +43,14 @@ float readSensors() {
     soundTime = pulseIn(echoPinRight, HIGH);
     objDist_R = float(soundTime * 0.0343 / 2);
     */
+    goForward();
     if (objDist_FL < 10.00) {
-        // Turn right
-        goRight();
-    }
-    /*
-    else if (objDist_FR < 5.00) {
-        // Turn left
+        stopMoving();
         goLeft();
     }
     else {
         goForward();
     }
-    */
-    /*
-    if (objDistance < 4) {
-      digitalWrite(ledPin, HIGH);
-      if (servoPos <= 90) {
-        for (servoPos; servoPos <= 90; servoPos += 1) { // goes from 0 to 180 degrees
-          // in steps of 1 degree
-          myServo.write(servoPos);// tell servo to go to position in variable 'pos'
-          delay(15);                       // waits 15ms for the servo to reach the position
-        }
-      }
-      else {
-         if (servoPos != 0) {
-            for (servoPos; servoPos >= 0; servoPos -= 1) { // goes from 0 to 180 degrees
-            // in steps of 1 degree
-            myServo.write(servoPos);// tell servo to go to position in variable 'pos'
-            delay(15);                       // waits 15ms for the servo to reach the position
-          }
-        }
-      }
-    }
-    else
-      digitalWrite(ledPin, LOW);
-     */
 
     // Print the distance on the Serial Monitor (Ctrl+Shift+M):
     Serial.print("Distance = ");
@@ -94,28 +61,49 @@ float readSensors() {
     delay(100);
 }
 
-void goRight() {
+void goForward() {
     digitalWrite(motorPin1, HIGH);
+    digitalWrite(motorPin2, LOW);
+    digitalWrite(motorPin3, HIGH);
+    digitalWrite(motorPin4, LOW);
+
+    digitalWrite(motor2Pin1, HIGH);
+    digitalWrite(motor2Pin2, LOW);
+    digitalWrite(motor2Pin3, HIGH);
+    digitalWrite(motor2Pin4, LOW);
+}
+
+void goLeft() {
+    digitalWrite(motorPin1, LOW);
+    digitalWrite(motorPin2, HIGH);
+    digitalWrite(motorPin3, HIGH);
+    digitalWrite(motorPin4, LOW);
+
+    digitalWrite(motor2Pin1, LOW);
+    digitalWrite(motor2Pin2, HIGH);
+    digitalWrite(motor2Pin3, HIGH);
+    digitalWrite(motor2Pin4, LOW);
+    
+    delay(500); 
+    goForward();
+}
+
+void stopMoving() {
+    digitalWrite(motorPin1, LOW);
     digitalWrite(motorPin2, LOW);
     digitalWrite(motorPin3, LOW);
     digitalWrite(motorPin4, LOW);
-    pinMode(enableA, OUTPUT);
-    analogWrite(enableA, 200);
-    analogWrite(enableB, 0);
-    delay(2000); 
-}
 
+    digitalWrite(motor2Pin1, LOW);
+    digitalWrite(motor2Pin2, LOW);
+    digitalWrite(motor2Pin3, LOW);
+    digitalWrite(motor2Pin4, LOW);
+}
+/*
 void goLeft() {
     digitalWrite(frontLeft, LOW);
     digitalWrite(frontRight, HIGH);
     digitalWrite(backLeft, HIGH);
     digitalWrite(backRight, LOW);
 }
-
-void goForward() {
-    digitalWrite(frontLeft, HIGH);
-    digitalWrite(frontRight, HIGH);
-    digitalWrite(backLeft, LOW);
-    digitalWrite(backRight, LOW);
-}
-        
+*/
