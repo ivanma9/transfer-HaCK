@@ -120,14 +120,14 @@ void demoTwo()
   // by your hardware
   // turn on motors
   digitalWrite(F_IN1, LOW);
-  digitalWrite(F_IN1, HIGH);  
-  digitalWrite(F_IN1, LOW);
-  digitalWrite(F_IN1, HIGH); 
+  digitalWrite(F_IN2, HIGH);  
+  digitalWrite(F_IN3, LOW);
+  digitalWrite(F_IN4, HIGH); 
 
   digitalWrite(B_IN1, LOW);
-  digitalWrite(B_IN1, HIGH);  
-  digitalWrite(B_IN1, LOW);
-  digitalWrite(B_IN1, HIGH); 
+  digitalWrite(B_IN2, HIGH);  
+  digitalWrite(B_IN3, LOW);
+  digitalWrite(B_IN4, HIGH); 
   
   // accelerate from zero to maximum speed
  for (int i = 0; i < 256; i++) { 
@@ -159,74 +159,61 @@ void demoTwo()
   digitalWrite(F_IN4, LOW);
 }
 
-/*
 void goForward() {
-    digitalWrite(frontLeftForward, HIGH);
-    digitalWrite(frontLeftBackward, LOW);
-    digitalWrite(frontRightForward, HIGH);
-    digitalWrite(frontRightBackward, LOW);
-
-    digitalWrite(backLeftForward, HIGH);
-    digitalWrite(backLeftBackward, LOW);
-    digitalWrite(backRightForward, HIGH);
-    digitalWrite(backRightBackward, LOW);
+  analogWrite(F_ENA, 255);
+  analogWrite(F_ENB, 255);
+  
+  analogWrite(B_ENA, 255);
+  analogWrite(B_ENB, 255);
+  
+  digitalWrite(F_IN1, HIGH);
+  digitalWrite(F_IN2, LOW);
+  digitalWrite(F_IN3, HIGH);
+  digitalWrite(F_IN4, LOW);
+  
+  digitalWrite(B_IN1, HIGH);
+  digitalWrite(B_IN2, LOW);
+  digitalWrite(B_IN3, HIGH);
+  digitalWrite(B_IN4, LOW);
 }
 
-void goLeft() {
+void turnRight() {
+  // ALL WHEELS GO FORWARD, BUT AT DIFFERENT SPEEDS
+  digitalWrite(F_IN1, HIGH);
+  digitalWrite(F_IN2, LOW);
+  digitalWrite(F_IN3, HIGH);
+  digitalWrite(F_IN4, LOW);
+  
+  digitalWrite(B_IN1, HIGH);
+  digitalWrite(B_IN2, LOW);
+  digitalWrite(B_IN3, HIGH);
+  digitalWrite(B_IN4, LOW); 
 
-    digitalWrite(enableFrontLeft, HIGH);
-    digitalWrite(enableFrontLeftackLeft, HIGH);
-    digitalWrite(enableFrontRight, HIGH);
-    digitalWrite(enableFrontLeftackRight, HIGH);
-    
-    analogWrite(frontLeftForward, 255);
-    analogWrite(frontLeftBackward, 155);
-    analogWrite(frontRightForward, 155);
-    analogWrite(frontRightBackward, 255);
+  // Keep the left side wheels at the max speed
+  analogWrite(F_ENA, 255);
+  analogWrite(B_ENA, 255);
+  
+  // Accelerate the right side wheels from 128 to maximum speed
+  for (int i = 128; i < 256; i++) {  
+     analogWrite(F_ENB, i); 
+     analogWrite(B_ENB, i);
+  }
 
-    analogWrite(backLeftForward, 155);
-    analogWrite(backLeftBackward, 255);
-    analogWrite(backRightForward, 255);
-    analogWrite(backRightBackward, 155);
-    
-    delay(10000);
+  delay(2000);
 
-    digitalWrite(enableFrontLeft, HIGH);
-    digitalWrite(enableFrontRight, HIGH);
-    digitalWrite(enableFrontRight, HIGH);
-    digitalWrite(enableBackRight, HIGH); 
-    goForward();
-
-    digitalWrite(frontLeftForward, HIGH);
-    digitalWrite(frontLeftBackward, LOW);
-    digitalWrite(frontRightForward, LOW);
-    digitalWrite(frontRightBackward, LOW);
-
-    digitalWrite(backLeftForward, HIGH);
-    digitalWrite(backLeftBackward, LOW);
-    digitalWrite(backRightForward, LOW);
-    digitalWrite(backRightBackward, LOW);
-
-    analogWrite(frontLeftForward, 255);
-    analogWrite(frontLeftBackward, 0);
-    analogWrite(frontRightForward, 0);
-    analogWrite(frontRightBackward, 0);
-
-    analogWrite(backLeftForward, 255);
-    analogWrite(backLeftBackward, 0);
-    analogWrite(backRightForward, 0);
-    analogWrite(backRightBackward, 0);
+  // CLOCKWISE/COUNTER-CLOCKWISE AT THE SAME SPEED
+  analogWrite(F_ENA, 255);
+  analogWrite(F_ENB, 255);
+  analogWrite(B_ENA, 255);
+  analogWrite(B_ENB, 255);
+  
+  digitalWrite(F_IN1, LOW);
+  digitalWrite(F_IN2, HIGH);
+  digitalWrite(F_IN3, HIGH);
+  digitalWrite(F_IN4, LOW);
+  
+  digitalWrite(B_IN1, HIGH);
+  digitalWrite(B_IN2, LOW);
+  digitalWrite(B_IN3, LOW);
+  digitalWrite(B_IN4, HIGH);
 }
-
-void stopMoving() {
-    digitalWrite(frontLeftForward, LOW);
-    digitalWrite(frontLeftBackward, LOW);
-    digitalWrite(frontRightForward, LOW);
-    digitalWrite(frontRightBackward, LOW);
-
-    digitalWrite(backLeftForward, LOW);
-    digitalWrite(backLeftBackward, LOW);
-    digitalWrite(backRightForward, LOW);
-    digitalWrite(backRightBackward, LOW);   
-}
-*/
