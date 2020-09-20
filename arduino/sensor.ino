@@ -110,6 +110,28 @@ void turnRight() {
     digitalWrite(B_IN3, LOW);
     digitalWrite(B_IN4, HIGH);
 
+    digitalWrite(trigPinFrontLeft, LOW);
+    delayMicroseconds(2);
+    digitalWrite(trigPinFrontLeft, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(trigPinFrontLeft, LOW);
+    soundTime = pulseIn(echoPinFrontLeft, HIGH);
+    objDist_FL = float(soundTime * 0.0343 / 2);
+    /*
+    // FRONT RIGHT SENSOR
+    digitalWrite(trigPinFrontRight, LOW);
+    delayMicroseconds(2);
+    digitalWrite(trigPinFrontRight, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(trigPinFrontRight, LOW);
+    soundTime = pulseIn(echoPinFrontRight, HIGH);
+    objDist_FR = float(soundTime * 0.0343 / 2);
+    */
+
+    if (objDist_FL > 10.00)
+      break;
+     
+    /*
     AcX = Wire.read()<<8|Wire.read(); 
     //AcY = Wire.read()<<8|Wire.read(); 
     AcZ = Wire.read()<<8|Wire.read(); 
@@ -125,30 +147,29 @@ void turnRight() {
 
     if (y == 90)
       break;
+     */
+    /*
+    unsigned long timer = 0;
+    float timeStep = 0.01;
+    float yaw = 0;
+
+    while(!mpu.begin(MPU6050_SCALE_2000DPS, MPU6050_RANGE_2G))
+    {
+      Serial.println("Could not find a valid MPU6050 sensor, check wiring!");
+      delay(500);
+    }
+
+    mpu.calibrateGyro();
+    mpu.setThreshold(3);
+
+    timer = millis();
+    Vector norm = mpu.readNormalizeGyro();
+    yaw = yaw + norm.ZAxis * timeStep;
+    delay((timeStep*1000) - (millis() - timer));
+    if (yaw == 90)
+      break;
   }
-
-  /*
-  unsigned long timer = 0;
-  float timeStep = 0.01;
-  float yaw = 0;
-
-  while(!mpu.begin(MPU6050_SCALE_2000DPS, MPU6050_RANGE_2G))
-  {
-    Serial.println("Could not find a valid MPU6050 sensor, check wiring!");
-    delay(500);
-  }
-
-  mpu.calibrateGyro();
-  mpu.setThreshold(3);
-
-  timer = millis();
-  Vector norm = mpu.readNormalizeGyro();
-  yaw = yaw + norm.ZAxis * timeStep;
-  delay((timeStep*1000) - (millis() - timer));
-  if (yaw == 90)
-    return;
   */
-
   //delay(4425);
 
 }
