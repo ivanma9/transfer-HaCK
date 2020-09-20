@@ -26,58 +26,61 @@ def main():
     x = 0;
     turns = 0;
     
-    while True:
-        try:    
-            ser_bytes = ser.readline()          # Get a line from the serial monitor
-            data = ser_bytes.decode().split()   # Split each line by whitespace
-            if (len(data) != 4):                # A complete line must have 4 numbers
-                continue
-            distancesFL.append(float(data[0])) 
-            distancesFR.append(float(data[1]))
-            distancesSL.append(float(data[2]))
-            distancesSR.append(float(data[3]))
+    while True:    
+        ser_bytes = ser.readline()          # Get a line from the serial monitor
+        data = ser_bytes.decode().split()   # Split each line by whitespace
+        if (len(data) != 4):                # A complete line must have 4 numbers
+            continue
             
-            if turns % 4 == 0:
-                if (not(data[0] <= 10.00) and not(data[0] <= 10.00)):
-                    plt.scatter(x, data[2]) #SL
-                    plt.scatter(x, data[3]) #SR
-                    x += 1
-                else:
-                    turns += 1
-                    plt.scatter(x, data[2]) #SL
-                    plt.scatter(x, data[3]) #SR
-            elif turns % 4 == 1:
-                if not(data[0] <= 10.00) and not(data[0] <= 10.00):
-                    plt.scatter(x, data[2]) #SL
-                    plt.scatter(x - 10, data[3]) #SR
-                else:
-                    turns += 1
-                    plt.scatter(x, data[2]) #SL
-                    plt.scatter(x - 10, data[3]) #SR
-            elif turns % 4 == 2:
-                if not(data[0] <= 10.00) and not(data[0] <= 10.00):
-                    plt.scatter(x, data[2]) #SL
-                    plt.scatter(x - 10, data[3]) #SR
-                    x -= 1
-                else:
-                    turns += 1
-                    plt.scatter(x, data[2]) #SL
-                    plt.scatter(x - 10, data[3]) #SR
-            elif turns % 4 == 3:
-                if not(data[0] <= 10.00) and not(data[0] <= 10.00):
-                    plt.scatter(x, data[2]) #SL
-                    plt.scatter(x + 10, data[3]) #SR
-                else:
-                    turns += 1
-                    plt.scatter(x, data[2]) #SL
-                    plt.scatter(x - 10, data[3]) #SR
+        FL = float(data[0])
+        FR = float(data[1])
+        L = float(data[2])
+        R = float(data[3])
+        
+        distancesFL.append(FL) 
+        distancesFR.append(FR)
+        distancesSL.append(L)
+        distancesSR.append(R)
+        
+        w = 5
+        v = 7
+        
+        if turns % 4 == 0:
+            if (FL > 10.00) or (FR > 10.00):
+                plt.scatter(150 - FL - v, L + w)
+                plt.scatter(150 - FL - v, R)
+            else:
+                turns += 1
+                plt.scatter(150 - FL - v, L + w)
+                plt.scatter(150 - FL - v, R)
+        elif turns % 4 == 1:
+            if (FL > 10.00) or (FR > 10.00):
+                plt.scatter(150 - L - w, FL - v)
+                plt.scatter(150 - R, FL - v)
+            else:
+                turns += 1
+                plt.scatter(150 - L - w, FL - v)
+                plt.scatter(150 - R, FL - v)
+        elif turns % 4 == 2:
+            if (FL > 10.00) or (FR > 10.00):
+                plt.scatter(FL + v, 150 - L)
+                plt.scatter(FL + v, R)
+            else:
+                turns += 1
+                plt.scatter(FL + v, 150 - L)
+                plt.scatter(FL + v, R)
+        elif turns % 4 == 3:
+            if (FL > 10.00) or (FR > 10.00):
+                plt.scatter(L + w, FL + v)
+                plt.scatter(L + w, R)
+            else:
+                turns += 1
+                plt.scatter(L + w, FL + v)
+                plt.scatter(L + w, R)
                     
-            plt.show()
-            plt.pause(0.0001)
-            
-        except:
-            print("Keyboard Interrupt")         # Send signal to abort task, ex CTRL + C
-            break
+        plt.show()
+        plt.pause(0.0001)
+
 
 
 main()
