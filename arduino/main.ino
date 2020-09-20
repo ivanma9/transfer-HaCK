@@ -1,5 +1,3 @@
-#include <Servo.h>
-
 //Sensors
 #define trigPinFrontLeft 49
 #define echoPinFrontLeft 48
@@ -71,6 +69,5 @@ void setup() {
 
 void loop() {
     readSensors();
-    demoOne();
-    //demoTwo();
+    turnRight();
 }
