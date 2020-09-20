@@ -23,8 +23,8 @@ def main():
     
     plt.ion()
     fig = plt.figure()
-    int x = 0;
-    int turns = 0;
+    x = 0;
+    turns = 0;
     
     while True:
         try:    
@@ -38,37 +38,37 @@ def main():
             distancesSR.append(float(data[3]))
             
             if turns % 4 == 0:
-                if (!(data[0] <= 10.00) and !(data[0] <= 10.00)):
+                if (not(data[0] <= 10.00) and not(data[0] <= 10.00)):
                     plt.scatter(x, data[2]) #SL
                     plt.scatter(x, data[3]) #SR
-                    x++
+                    x += 1
                 else:
-                    turns++
+                    turns += 1
                     plt.scatter(x, data[2]) #SL
                     plt.scatter(x, data[3]) #SR
-            else if turns % 4 == 1:
+            elif turns % 4 == 1:
                 if not(data[0] <= 10.00) and not(data[0] <= 10.00):
                     plt.scatter(x, data[2]) #SL
                     plt.scatter(x - 10, data[3]) #SR
                 else:
-                    turns++
+                    turns += 1
                     plt.scatter(x, data[2]) #SL
                     plt.scatter(x - 10, data[3]) #SR
-            else if turns % 4 == 2:
+            elif turns % 4 == 2:
                 if not(data[0] <= 10.00) and not(data[0] <= 10.00):
                     plt.scatter(x, data[2]) #SL
                     plt.scatter(x - 10, data[3]) #SR
-                    x--
+                    x -= 1
                 else:
-                    turns++
+                    turns += 1
                     plt.scatter(x, data[2]) #SL
                     plt.scatter(x - 10, data[3]) #SR
-            else if turns % 4 == 3:
+            elif turns % 4 == 3:
                 if not(data[0] <= 10.00) and not(data[0] <= 10.00):
                     plt.scatter(x, data[2]) #SL
                     plt.scatter(x + 10, data[3]) #SR
                 else:
-                    turns++
+                    turns += 1
                     plt.scatter(x, data[2]) #SL
                     plt.scatter(x - 10, data[3]) #SR
                     
