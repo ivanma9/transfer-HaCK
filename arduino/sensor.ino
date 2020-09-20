@@ -98,5 +98,5 @@ void turnRight() {
    digitalWrite(B_IN3, LOW);
    digitalWrite(B_IN4, HIGH);
 
-   delay(4440);
+   delay(4940);
 }
