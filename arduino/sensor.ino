@@ -55,10 +55,10 @@ float readSensors() {
     Serial.print(" ");
 
     Serial.print(objDist_FR);
-    Serial.println(" ");
+    Serial.print(" ");
     
     Serial.print(objDist_L);
-    Serial.println(" ");
+    Serial.print(" ");
 
     Serial.println(objDist_R);
 }
