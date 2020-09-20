@@ -42,7 +42,7 @@ float readSensors() {
     soundTime = pulseIn(echoPinRight, HIGH);
     objDist_R = float(soundTime * 0.0343 / 2);
 
-    if (objDist_FL > 10.00 && objDist_FR > 10.00) {
+    if (objDist_FL > 10.00 || objDist_FR > 10.00) {
         goForward();
     }
     else {
@@ -98,5 +98,5 @@ void turnRight() {
    digitalWrite(B_IN3, LOW);
    digitalWrite(B_IN4, HIGH);
 
-    delay(4440);
+   delay(4440);
 }
