@@ -1,7 +1,7 @@
 float readSensors() {
     long soundTime;
     float objDist_FL, objDist_FR, objDist_L, objDist_R;
-    
+
     // FRONT LEFT SENSOR
     digitalWrite(trigPinFrontLeft, LOW);
     delayMicroseconds(2);
@@ -49,7 +49,7 @@ float readSensors() {
         turnRight();
         goForward();
     }
-    /*
+    
     // Print the distance on the Serial Monitor (Ctrl+Shift+M):
     Serial.print("Front left distance = ");
     Serial.print(objDist_FL);
@@ -70,8 +70,8 @@ float readSensors() {
     Serial.print("\n\n\n");
 
     // Delay so data isn't printed too fast
-    delay(5000);
-    */
+    delay(2000);
+    
 }
 
 void goForward() {
@@ -99,30 +99,56 @@ void turnRight() {
   analogWrite(B_ENA, 255);
   analogWrite(B_ENB, 255);
   
-  digitalWrite(F_IN1, LOW);
-  digitalWrite(F_IN2, HIGH);
-  digitalWrite(F_IN3, HIGH);
-  digitalWrite(F_IN4, LOW);
+  while (true) {
+    digitalWrite(F_IN1, LOW);
+    digitalWrite(F_IN2, HIGH);
+    digitalWrite(F_IN3, HIGH);
+    digitalWrite(F_IN4, LOW);
   
-  digitalWrite(B_IN1, HIGH);
-  digitalWrite(B_IN2, LOW);
-  digitalWrite(B_IN3, LOW);
-  digitalWrite(B_IN4, HIGH);
+    digitalWrite(B_IN1, HIGH);
+    digitalWrite(B_IN2, LOW);
+    digitalWrite(B_IN3, LOW);
+    digitalWrite(B_IN4, HIGH);
 
-  // Turn right for 8 seconds
-  delay(8000);
+    AcX = Wire.read()<<8|Wire.read(); 
+    //AcY = Wire.read()<<8|Wire.read(); 
+    AcZ = Wire.read()<<8|Wire.read(); 
+    int xAng = map(AcX,minVal,maxVal,-90,90); 
+    //int yAng = map(AcY,minVal,maxVal,-90,90); 
+    int zAng = map(AcZ,minVal,maxVal,-90,90);
+
+    //x = RAD_TO_DEG * (atan2(-yAng, -zAng)+PI); 
+    y = RAD_TO_DEG * (atan2(-xAng, -zAng) + PI); 
+    //z = RAD_TO_DEG * (atan2(-yAng, -xAng)+PI);
+    int yAng = map(AcY, minVal, maxVal, -90, 90); 
+    y = RAD_TO_DEG * (atan2(-xAng, -zAng) + PI);
+
+    if (y == 90)
+      break;
+  }
 
   /*
-  digitalWrite(F_IN1, HIGH);
-  digitalWrite(F_IN2, LOW);
-  digitalWrite(F_IN3, HIGH);
-  digitalWrite(F_IN4, LOW);
-  
-  digitalWrite(B_IN1, HIGH);
-  digitalWrite(B_IN2, LOW);
-  digitalWrite(B_IN3, HIGH);
-  digitalWrite(B_IN4, LOW);
+  unsigned long timer = 0;
+  float timeStep = 0.01;
+  float yaw = 0;
 
-  delay(2000);
+  while(!mpu.begin(MPU6050_SCALE_2000DPS, MPU6050_RANGE_2G))
+  {
+    Serial.println("Could not find a valid MPU6050 sensor, check wiring!");
+    delay(500);
+  }
+
+  mpu.calibrateGyro();
+  mpu.setThreshold(3);
+
+  timer = millis();
+  Vector norm = mpu.readNormalizeGyro();
+  yaw = yaw + norm.ZAxis * timeStep;
+  delay((timeStep*1000) - (millis() - timer));
+  if (yaw == 90)
+    return;
   */
+
+  //delay(4425);
+
 }
