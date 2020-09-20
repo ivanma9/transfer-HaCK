@@ -49,29 +49,18 @@ float readSensors() {
         turnRight();
         goForward();
     }
-    
+
     // Print the distance on the Serial Monitor (Ctrl+Shift+M):
-    Serial.print("Front left distance = ");
     Serial.print(objDist_FL);
-    Serial.println(" cm");
+    Serial.print(" ");
 
-    Serial.print("Front right distance = ");
     Serial.print(objDist_FR);
-    Serial.println(" cm");
-
-    Serial.print("Left side distance = ");
-    Serial.print(objDist_L);
-    Serial.println(" cm");
-
-    Serial.print("Right side distance = ");
-    Serial.print(objDist_R);
-    Serial.println(" cm");
-
-    Serial.print("\n\n\n");
-
-    // Delay so data isn't printed too fast
-    delay(2000);
+    Serial.println(" ");
     
+    Serial.print(objDist_L);
+    Serial.println(" ");
+
+    Serial.println(objDist_R);
 }
 
 void goForward() {
@@ -93,6 +82,9 @@ void goForward() {
 }
 
 void turnRight() {
+  long soundTime;
+  float objDist_FL, objDist_FR;
+
   // WHEELS GO FORWARD ON RIGHT SIDE, BACKWARDS ON LEFT SIDE
   analogWrite(F_ENA, 255);
   analogWrite(F_ENB, 255);
@@ -130,6 +122,7 @@ void turnRight() {
 
     if (objDist_FL > 10.00)
       break;
+  }
      
     /*
     AcX = Wire.read()<<8|Wire.read(); 
