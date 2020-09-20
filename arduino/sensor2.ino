@@ -88,7 +88,8 @@ void turnRight(int oldDist_L) {
   analogWrite(B_ENA, 255);
   analogWrite(B_ENB, 255);
 
-  while (true){
+  bool keepTurning = true;
+  while (keepTurning){
    digitalWrite(F_IN1, LOW);
    digitalWrite(F_IN2, HIGH);
    digitalWrite(F_IN3, HIGH);
@@ -100,18 +101,18 @@ void turnRight(int oldDist_L) {
    digitalWrite(B_IN4, HIGH);
 
    // LEFT SIDE SENSOR
-   long soundTime;
-   float objDist_L;
+   long s_time;
+   float dist;
    digitalWrite(trigPinLeft, LOW);
    delayMicroseconds(2);
    digitalWrite(trigPinLeft, HIGH);
    delayMicroseconds(10);
    digitalWrite(trigPinLeft, LOW);
-   soundTime = pulseIn(echoPinLeft, HIGH);
-   objDist_L = float(soundTime * 0.0343 / 2);
+   s_time = pulseIn(echoPinLeft, HIGH);
+   dist = float(s_time * 0.0343 / 2);
 
-   if (objDist_L - 1 <= oldDist_L)
-    break;
+   if (dist - 1 <= oldDist_L)
+    keepTurning = false;
   }
    //delay(4940);
 }
