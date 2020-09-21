@@ -3,8 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 baud = 9600
-port = "/dev/cu.usbmodem14201"
-
+port = "/dev/tty.HC-05-DevB"
 
 def main():
     try:
@@ -16,14 +15,8 @@ def main():
     
     ser.flushInput()
     
-    distancesFL = []
-    distancesFR = []
-    distancesSL = []
-    distancesSR = []
-    
     plt.ion()
     fig = plt.figure()
-    x = 0;
     turns = 0;
     
     while True:    
@@ -37,50 +30,43 @@ def main():
         L = float(data[2])
         R = float(data[3])
         
-        distancesFL.append(FL) 
-        distancesFR.append(FR)
-        distancesSL.append(L)
-        distancesSR.append(R)
-        
         w = 5
         v = 7
         
-        if turns % 4 == 0:
+        if turns % 4 == 0: # up
             if (FL > 10.00) or (FR > 10.00):
-                plt.scatter(150 - FL - v, L + w)
-                plt.scatter(150 - FL - v, R)
+                plt.scatter(L + w, FL + v, c = "black")
+                plt.scatter(L + w, R, c = "black")
             else:
                 turns += 1
-                plt.scatter(150 - FL - v, L + w)
-                plt.scatter(150 - FL - v, R)
-        elif turns % 4 == 1:
+                plt.scatter(L + w, FL + v, c = "black")
+                plt.scatter(L + w, R, c = "black")
+        elif turns % 4 == 1: #right
             if (FL > 10.00) or (FR > 10.00):
-                plt.scatter(150 - L - w, FL - v)
-                plt.scatter(150 - R, FL - v)
+                plt.scatter(150 - L - w, FL - v, c = "black")
+                plt.scatter(150 - R, FL - v, c = "black")
             else:
                 turns += 1
-                plt.scatter(150 - L - w, FL - v)
-                plt.scatter(150 - R, FL - v)
-        elif turns % 4 == 2:
+                plt.scatter(150 - L - w, FL - v, c = "black")
+                plt.scatter(150 - R, FL - v, c = "black")
+        elif turns % 4 == 2: #down
             if (FL > 10.00) or (FR > 10.00):
-                plt.scatter(FL + v, 150 - L)
-                plt.scatter(FL + v, R)
+                plt.scatter(FL + v, 150 - L, c = "black")
+                plt.scatter(FL + v, R, c = "black")
             else:
                 turns += 1
-                plt.scatter(FL + v, 150 - L)
-                plt.scatter(FL + v, R)
-        elif turns % 4 == 3:
+                plt.scatter(FL + v, 150 - L, c = "black")
+                plt.scatter(FL + v, R, c = "black")
+        elif turns % 4 == 3: #left
             if (FL > 10.00) or (FR > 10.00):
-                plt.scatter(L + w, FL + v)
-                plt.scatter(L + w, R)
+                plt.scatter(150 - FL - v, L + w, c = "black")
+                plt.scatter(150 - FL - v, R, c = "black")
             else:
                 turns += 1
-                plt.scatter(L + w, FL + v)
-                plt.scatter(L + w, R)
+                plt.scatter(150 - FL - v, L + w, c = "black")
+                plt.scatter(150 - FL - v, R, c = "black")
                     
         plt.show()
-        plt.pause(0.0001)
-
-
+        plt.pause(0.01)
 
 main()
